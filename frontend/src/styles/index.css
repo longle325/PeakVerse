@@ -1,0 +1,148 @@
+@import "./fonts.css";
+@import "./legacy.css";
+@import "./theme.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* === Onboarding (new in React migration) === */
+.onboarding-screen {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 32px 20px;
+  background: var(--surface);
+}
+
+.onboarding-card {
+  width: 100%;
+  max-width: 460px;
+  background: var(--surface-lowest);
+  border: 1px solid var(--ink-10, rgba(0, 0, 0, 0.08));
+  border-radius: 24px;
+  padding: 36px 32px;
+  box-shadow: 0 12px 32px rgba(20, 18, 16, 0.06);
+}
+
+.onboarding-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.onboarding-form .field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.onboarding-form .field > span {
+  font-weight: 600;
+  color: var(--ink, #2b2622);
+}
+
+.onboarding-form input {
+  font: inherit;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--ink-15, rgba(0, 0, 0, 0.12));
+  background: var(--surface);
+  color: var(--ink, #2b2622);
+}
+
+.onboarding-form input:focus-visible {
+  outline: 2px solid var(--cinnabar);
+  outline-offset: 2px;
+}
+
+.grade-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.error-text {
+  color: #b3261e;
+  font-size: 12px;
+}
+
+/* === Collection sort dropdown === */
+.sort-menu {
+  position: relative;
+}
+
+.sort-options {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  background: var(--surface-lowest);
+  border: 1px solid var(--ink-15, rgba(0, 0, 0, 0.12));
+  border-radius: 12px;
+  box-shadow: 0 12px 24px rgba(20, 18, 16, 0.08);
+  z-index: 5;
+  min-width: 220px;
+}
+
+.sort-options li {
+  margin: 0;
+}
+
+.sort-options button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 8px 10px;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  font: inherit;
+  color: var(--ink, #2b2622);
+  cursor: pointer;
+}
+
+.sort-options button:hover {
+  background: var(--surface);
+}
+
+.sort-options button.active {
+  background: var(--surface);
+  font-weight: 600;
+}
+
+/* === Chat streaming error notice === */
+.chat-error {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0 0;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #fdecea;
+  color: #b3261e;
+  font-size: 14px;
+}
+
+.chat-error .material-symbols-outlined {
+  font-size: 18px;
+}
+
+/* === Swipe deck wrapper for react-tinder-card === */
+.deck-stack {
+  position: relative;
+  display: block;
+}
+
+.deck-tinder {
+  display: block;
+  touch-action: none;
+}
+
+.deck-tinder > * {
+  width: 100%;
+}

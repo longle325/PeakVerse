@@ -1,0 +1,279 @@
+{
+  "version": 1,
+  "characters": [
+    {
+      "slug": "chi_pheo",
+      "name": "Chí Phèo",
+      "work_title": "Chí Phèo",
+      "author": "Nam Cao",
+      "folder": "Chi_Pheo",
+      "documents": [
+        {
+          "document_id": "chi_pheo.original.full_text",
+          "doc_type": "original",
+          "source_path": "Chi_Pheo/Chí_Phèo.txt",
+          "source_url": "",
+          "license_status": "public_domain_or_user_provided",
+          "reliability": "high"
+        },
+        {
+          "document_id": "chi_pheo.analysis.bi_kich_cu_tuyet",
+          "doc_type": "analysis",
+          "source_path": "Chi_Pheo/bi_kich_cu_tuyet_quyen_lam_nguoi.txt",
+          "source_url": "",
+          "license_status": "user_provided",
+          "reliability": "medium"
+        },
+        {
+          "document_id": "chi_pheo.analysis.thuc_tinh_tam_li",
+          "doc_type": "analysis",
+          "source_path": "Chi_Pheo/qua_trinh_thuc_tinh_tam_li.txt",
+          "source_url": "",
+          "license_status": "user_provided",
+          "reliability": "medium"
+        }
+      ]
+    },
+    {
+      "slug": "mi",
+      "name": "Mị",
+      "work_title": "Vợ chồng A Phủ",
+      "author": "Tô Hoài",
+      "folder": "Mi",
+      "documents": [
+        {
+          "document_id": "mi.original.full_text",
+          "doc_type": "original",
+          "source_path": "Mi/Vợ_chồng_a_phủ.txt",
+          "source_url": "",
+          "license_status": "user_provided",
+          "reliability": "high"
+        },
+        {
+          "document_id": "mi.analysis.phan_tich_nhan_vat",
+          "doc_type": "analysis",
+          "source_path": "Mi/phan_tich_nhan_vat_mi.txt",
+          "source_url": "",
+          "license_status": "user_provided",
+          "reliability": "medium"
+        },
+        {
+          "document_id": "mi.analysis.suc_song_tiem_tang",
+          "doc_type": "analysis",
+          "source_path": "Mi/suc_song_tiem_tang.txt",
+          "source_url": "",
+          "license_status": "user_provided",
+          "reliability": "medium"
+        }
+      ]
+    },
+    {
+      "slug": "xuan_toc_do",
+      "name": "Xuân Tóc Đỏ",
+      "work_title": "Số đỏ",
+      "author": "Vũ Trọng Phụng",
+      "folder": "Xuan_red_hair",
+      "documents": [
+        {
+          "document_id": "xuan_toc_do.original.full_text",
+          "doc_type": "original",
+          "source_path": "Xuan_red_hair/Số_Đỏ_full_text.txt",
+          "source_url": "",
+          "license_status": "public_domain_or_user_provided",
+          "reliability": "medium"
+        },
+        {
+          "document_id": "xuan_toc_do.analysis.phan_tich_nhan_vat",
+          "doc_type": "analysis",
+          "source_path": "Xuan_red_hair/phan_tich_nhan_vat.txt",
+          "source_url": "",
+          "license_status": "user_provided",
+          "reliability": "medium"
+        }
+      ]
+    },
+    {
+      "slug": "luc_van_tien",
+      "name": "Lục Vân Tiên",
+      "work_title": "Lục Vân Tiên",
+      "author": "Nguyễn Đình Chiểu",
+      "folder": "Luc_Van_Tien",
+      "documents": [
+        {
+          "document_id": "luc_van_tien.original.part_i",
+          "doc_type": "original",
+          "source_path": "Luc_Van_Tien/Lục_Vân_Tiên_(bản_Quốc_ngữ_2082_câu)_I_full_text.txt",
+          "source_url": "https://vi.wikisource.org/wiki/L%E1%BB%A5c_V%C3%A2n_Ti%C3%AAn_(b%E1%BA%A3n_Qu%E1%BB%91c_ng%E1%BB%AF_2082_c%C3%A2u)/I",
+          "license_status": "public_domain",
+          "reliability": "high"
+        },
+        {
+          "document_id": "luc_van_tien.analysis.phan_tich_nhan_vat",
+          "doc_type": "analysis",
+          "source_path": "Luc_Van_Tien/phan_tich_nhan_vat_luc_van_tien.txt",
+          "source_url": "",
+          "license_status": "user_provided",
+          "reliability": "medium"
+        }
+      ]
+    },
+    {
+      "slug": "thuy_kieu",
+      "name": "Thúy Kiều",
+      "work_title": "Truyện Kiều",
+      "author": "Nguyễn Du",
+      "folder": "Thuy_Kieu",
+      "documents": [
+        {
+          "document_id": "thuy_kieu.original.full_text",
+          "doc_type": "original",
+          "source_path": "Thuy_Kieu/Truyện_Kiều_(bản_Trương_Vĩnh_Ký_1911)_Kim,_Vân,_Kiều_truyện_full_text.txt",
+          "source_url": "https://vi.wikisource.org/wiki/Truy%E1%BB%87n_Ki%E1%BB%81u_(b%E1%BA%A3n_Tr%C6%B0%C6%A1ng_V%C4%A9nh_K%C3%BD_1911)",
+          "license_status": "public_domain",
+          "reliability": "high"
+        },
+        {
+          "document_id": "thuy_kieu.analysis.trao_duyen",
+          "doc_type": "analysis",
+          "source_path": "Thuy_Kieu/tam_trang_thuy_kieu_trao_duyen.txt",
+          "source_url": "",
+          "license_status": "user_provided",
+          "reliability": "medium"
+        },
+        {
+          "document_id": "thuy_kieu.analysis.lau_ngung_bich",
+          "doc_type": "analysis",
+          "source_path": "Thuy_Kieu/Kieu_o_lau_ngung_bich.txt",
+          "source_url": "",
+          "license_status": "user_provided",
+          "reliability": "medium"
+        }
+      ]
+    },
+    {
+      "slug": "lao_hac",
+      "name": "Lão Hạc",
+      "work_title": "Lão Hạc",
+      "author": "Nam Cao",
+      "folder": "Lao_Hac",
+      "documents": [
+        {
+          "document_id": "lao_hac.original.full_text",
+          "doc_type": "original",
+          "source_path": "Lao_Hac/Lão_Hạc.txt",
+          "source_url": "https://vi.wikisource.org/wiki/L%C3%A3o_H%E1%BA%A1c",
+          "license_status": "public_domain",
+          "reliability": "high"
+        },
+        {
+          "document_id": "lao_hac.analysis.phan_tich_nhan_vat",
+          "doc_type": "analysis",
+          "source_path": "Lao_Hac/phan_tich_nhan_vat_lao_hac.txt",
+          "source_url": "https://doctailieu.com/phan-tich-nhan-vat-lao-hac-trong-truyen-ngan-lao-hac",
+          "license_status": "user_provided",
+          "reliability": "medium"
+        }
+      ]
+    },
+    {
+      "slug": "chi_dau",
+      "name": "Chị Dậu",
+      "work_title": "Tắt đèn",
+      "author": "Ngô Tất Tố",
+      "folder": "Chi_Dau",
+      "documents": [
+        {
+          "document_id": "chi_dau.original.excerpts",
+          "doc_type": "original",
+          "source_path": "Chi_Dau/Tắt_đèn_trích_đoạn_Chị_Dậu.txt",
+          "source_url": "https://vi.wikisource.org/wiki/T%E1%BA%AFt_%C4%91%C3%A8n",
+          "license_status": "public_domain",
+          "reliability": "high"
+        },
+        {
+          "document_id": "chi_dau.analysis.phan_tich_nhan_vat",
+          "doc_type": "analysis",
+          "source_path": "Chi_Dau/phan_tich_nhan_vat_chi_dau.txt",
+          "source_url": "https://baivanmau.net/phan-tich-nhan-vat-chi-dau-trich-tat-den-cua-ngo-tat-to/",
+          "license_status": "user_provided",
+          "reliability": "medium"
+        }
+      ]
+    },
+    {
+      "slug": "ong_sau",
+      "name": "Ông Sáu",
+      "work_title": "Chiếc lược ngà",
+      "author": "Nguyễn Quang Sáng",
+      "folder": "Ong_Sau",
+      "documents": [
+        {
+          "document_id": "ong_sau.original.character_excerpt",
+          "doc_type": "original",
+          "source_path": "Ong_Sau/Chiếc_lược_ngà_trích_đoạn_Ông_Sáu.txt",
+          "source_url": "https://doctailieu.com/phan-tich-nhan-vat-ong-sau",
+          "license_status": "user_provided",
+          "reliability": "medium"
+        },
+        {
+          "document_id": "ong_sau.analysis.phan_tich_nhan_vat",
+          "doc_type": "analysis",
+          "source_path": "Ong_Sau/phan_tich_nhan_vat_ong_sau.txt",
+          "source_url": "https://doctailieu.com/phan-tich-nhan-vat-ong-sau",
+          "license_status": "user_provided",
+          "reliability": "medium"
+        }
+      ]
+    },
+    {
+      "slug": "ong_hai",
+      "name": "Ông Hai",
+      "work_title": "Làng",
+      "author": "Kim Lân",
+      "folder": "Ong_Hai",
+      "documents": [
+        {
+          "document_id": "ong_hai.original.character_excerpt",
+          "doc_type": "original",
+          "source_path": "Ong_Hai/Làng_trích_đoạn_Ông_Hai.txt",
+          "source_url": "https://vanhoc.net/phan-tich-nhan-vat-ong-hai-trong-truyen-ngan-lang-kim-lan/",
+          "license_status": "user_provided",
+          "reliability": "medium"
+        },
+        {
+          "document_id": "ong_hai.analysis.phan_tich_nhan_vat",
+          "doc_type": "analysis",
+          "source_path": "Ong_Hai/phan_tich_nhan_vat_ong_hai.txt",
+          "source_url": "https://vanhoc.net/phan-tich-nhan-vat-ong-hai-trong-truyen-ngan-lang-kim-lan/",
+          "license_status": "user_provided",
+          "reliability": "medium"
+        }
+      ]
+    },
+    {
+      "slug": "vu_nuong",
+      "name": "Vũ Nương",
+      "work_title": "Chuyện người con gái Nam Xương",
+      "author": "Nguyễn Dữ",
+      "folder": "Vu_Nuong",
+      "documents": [
+        {
+          "document_id": "vu_nuong.original.full_text",
+          "doc_type": "original",
+          "source_path": "Vu_Nuong/Chuyện_người_con_gái_Nam_Xương.txt",
+          "source_url": "https://vi.wikisource.org/wiki/Truy%E1%BB%81n_k%E1%BB%B3_m%E1%BA%A1n_l%E1%BB%A5c/16",
+          "license_status": "public_domain",
+          "reliability": "high"
+        },
+        {
+          "document_id": "vu_nuong.analysis.phan_tich_nhan_vat",
+          "doc_type": "analysis",
+          "source_path": "Vu_Nuong/phan_tich_nhan_vat_vu_nuong.txt",
+          "source_url": "https://vieclam123.vn/phan-tich-nhan-vat-vu-nuong-b796.html",
+          "license_status": "user_provided",
+          "reliability": "medium"
+        }
+      ]
+    }
+  ]
+}

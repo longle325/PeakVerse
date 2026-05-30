@@ -1,0 +1,2698 @@
+/* ============================================================
+ * LitMatch — Folk Woodblock Theme
+ *
+ * Inspired by Đông Hồ folk prints and aged Vietnamese scroll
+ * manuscripts: parchment paper, cinnabar ink for headlines,
+ * gold and wood-frame accents, subtle vignette and grain.
+ *
+ * This file overrides legacy tokens — load it AFTER legacy.css.
+ * ============================================================ */
+
+:root {
+  /* --- Parchment palette --- */
+  --surface: #efe1bd;            /* base aged paper */
+  --surface-lowest: #faf0d2;     /* lightest cream highlight */
+  --surface-low: #e7d3a4;        /* mid parchment */
+  --surface-mid: #d6bd86;        /* darker parchment */
+  --surface-high: #b89b65;       /* worn edge */
+  --paper: #ead7a7;
+
+  /* --- Ink and type --- */
+  --ink: #2c1c0d;                /* warm dark brown */
+  --ink-soft: #4d3a22;
+  --text: #2c1c0d;
+  --muted: #6b5634;
+  --outline: #b89b65;
+
+  /* --- Accent inks --- */
+  --cinnabar: #7a1c1c;           /* deep maroon — primary headline */
+  --cinnabar-bright: #a52222;    /* brighter red — buttons, seals */
+  --cinnabar-deep: #5b0005;      /* darkest red — hover */
+  --gold: #c69a3e;               /* gold leaf */
+  --gold-soft: #d8b66a;
+  --gold-bright: #e6c87c;
+  --wood: #5a3a1f;               /* wood-frame brown */
+  --wood-light: #7a4f2c;
+  --wood-dark: #3a2412;
+  --jade: #4f6b58;               /* woodblock muted green */
+
+  --ink-15: rgba(44, 28, 13, 0.18);
+  --ink-25: rgba(44, 28, 13, 0.28);
+  --ink-40: rgba(44, 28, 13, 0.42);
+
+  --shadow: 0 8px 24px -8px rgba(74, 51, 28, 0.32),
+            0 2px 4px rgba(74, 51, 28, 0.16);
+  --shadow-deep: 0 16px 40px -12px rgba(58, 36, 18, 0.45),
+                 0 4px 8px rgba(58, 36, 18, 0.18);
+
+  /* SVG noise — subtle parchment grain */
+  --paper-grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.92' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.3  0 0 0 0 0.18  0 0 0 0 0.05  0 0 0 0.5 0'/></filter><rect width='180' height='180' filter='url(%23n)' opacity='0.18'/></svg>");
+}
+
+/* ============================================================
+ * Defensive icon reset — Material Symbols ligatures must not be
+ * broken by inherited letter-spacing or text-transform from the
+ * heavy serif typography below.
+ * ============================================================ */
+.material-symbols-outlined {
+  font-family: "Material Symbols Outlined" !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  font-style: normal !important;
+  font-feature-settings: "liga";
+  font-variant-ligatures: normal;
+}
+
+/* ============================================================
+ * Body — parchment with vignette + grain
+ * ============================================================ */
+body {
+  background-color: var(--surface);
+  background-image:
+    /* warm vignette darkening the corners like a scroll */
+    radial-gradient(
+      ellipse at center,
+      transparent 0%,
+      rgba(122, 79, 44, 0.06) 55%,
+      rgba(74, 51, 28, 0.18) 100%
+    ),
+    /* faint horizontal "grain of paper" */
+    repeating-linear-gradient(
+      90deg,
+      rgba(122, 79, 44, 0.012) 0 2px,
+      transparent 2px 5px
+    ),
+    var(--paper-grain);
+  background-attachment: fixed, fixed, fixed;
+  font-family: "Be Vietnam Pro", "Noto Serif", serif;
+  color: var(--ink);
+}
+
+/* ============================================================
+ * Type — ink on parchment
+ * ============================================================ */
+h1, h2, h3, .headline-lg, .brand-title {
+  font-family: "Noto Serif", serif;
+  color: var(--cinnabar);
+  letter-spacing: 0.01em;
+}
+
+.headline-lg {
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-shadow: 0 1px 0 rgba(255, 244, 214, 0.4);
+}
+
+.kicker {
+  color: var(--cinnabar-bright);
+  font-family: "Noto Serif", serif;
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.lead {
+  color: var(--ink-soft);
+  font-family: "Be Vietnam Pro", sans-serif;
+  line-height: 1.6;
+}
+
+small,
+.collection-body small {
+  color: var(--muted);
+}
+
+/* ============================================================
+ * Sidebar — scroll-edge with seal
+ * ============================================================ */
+.side-nav {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(214, 189, 134, 0.55) 0%,
+      rgba(239, 225, 189, 0.95) 18%,
+      rgba(239, 225, 189, 0.95) 82%,
+      rgba(214, 189, 134, 0.55) 100%
+    );
+  border-right: 1px solid var(--wood);
+  box-shadow: inset -4px 0 0 -2px var(--gold-soft);
+  padding-top: 96px;
+}
+
+.side-nav::before {
+  content: "";
+  position: absolute;
+  top: 18px;
+  left: 28px;
+  right: 28px;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--wood-light) 12%,
+    var(--wood) 50%,
+    var(--wood-light) 88%,
+    transparent
+  );
+}
+
+.brand {
+  margin-bottom: 28px;
+  position: relative;
+}
+
+.brand-title {
+  font-family: "Noto Serif", serif;
+  font-weight: 700;
+  font-size: 32px;
+  color: var(--cinnabar-deep);
+  letter-spacing: 0.05em;
+  margin: 0;
+  position: relative;
+  display: inline-block;
+}
+
+.brand-title::after {
+  /* small red seal/stamp dot to the right of the wordmark */
+  content: "印";
+  position: absolute;
+  right: -28px;
+  top: 4px;
+  width: 22px;
+  height: 22px;
+  background: var(--cinnabar-bright);
+  color: var(--surface-lowest);
+  font-family: "Noto Serif", serif;
+  font-size: 13px;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  border-radius: 3px;
+  transform: rotate(-4deg);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.brand-subtitle {
+  color: var(--wood);
+  font-family: "Noto Serif", serif;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  margin: 6px 0 0;
+}
+
+.nav-link {
+  font-family: "Be Vietnam Pro", sans-serif;
+  color: var(--ink-soft);
+  font-weight: 500;
+  border-radius: 8px;
+  padding: 10px 14px;
+  transition: background 160ms ease, color 160ms ease;
+}
+
+.nav-link:hover {
+  background: rgba(122, 79, 44, 0.08);
+  color: var(--cinnabar);
+}
+
+.nav-link.active {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(166, 41, 41, 0.14),
+      rgba(166, 41, 41, 0.04) 80%
+    );
+  color: var(--cinnabar);
+  font-weight: 600;
+  box-shadow: inset 3px 0 0 var(--cinnabar-bright);
+  border-radius: 4px 8px 8px 4px;
+}
+
+.nav-link .material-symbols-outlined {
+  color: var(--gold);
+}
+
+.nav-link.active .material-symbols-outlined {
+  color: var(--cinnabar-bright);
+}
+
+/* ============================================================
+ * Top bar — carved tablet
+ * ============================================================ */
+.topbar {
+  background:
+    linear-gradient(180deg, rgba(250, 240, 210, 0.88), rgba(231, 211, 164, 0.88));
+  border-bottom: 1px solid var(--wood-light);
+  box-shadow: 0 1px 0 var(--gold-soft), 0 4px 12px -8px rgba(58, 36, 18, 0.25);
+}
+
+.topbar-metrics .metric {
+  background: var(--surface-lowest);
+  border: 1px solid var(--wood-light);
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-family: "Noto Serif", serif;
+  font-weight: 600;
+  color: var(--cinnabar);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 248, 220, 0.9),
+    0 2px 4px rgba(58, 36, 18, 0.12);
+}
+
+.topbar-metrics .metric .material-symbols-outlined {
+  color: var(--gold);
+  font-size: 20px;
+}
+
+/* ============================================================
+ * Cards — parchment scrolls with double-line wood frame
+ * ============================================================ */
+.card {
+  background:
+    linear-gradient(180deg, var(--surface-lowest), var(--paper));
+  background-blend-mode: multiply;
+  border: 1px solid var(--wood-light);
+  box-shadow:
+    inset 0 0 0 1px rgba(231, 211, 164, 0.7),
+    inset 0 0 0 5px var(--surface-lowest),
+    inset 0 0 0 6px var(--gold-soft),
+    var(--shadow);
+  border-radius: 8px;
+  position: relative;
+}
+
+.card::before,
+.card::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--cinnabar);
+  pointer-events: none;
+}
+
+.card::before {
+  top: 10px;
+  left: 10px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.card::after {
+  bottom: 10px;
+  right: 10px;
+  border-left: none;
+  border-top: none;
+}
+
+/* Discover card body — keep image hero, restyle text panel */
+.deck-card .deck-body {
+  background: transparent;
+  padding-top: 22px;
+}
+
+.deck-card .quote {
+  font-family: "Noto Serif", serif;
+  font-style: italic;
+  color: var(--cinnabar-deep);
+  border-left: 3px double var(--cinnabar);
+  padding-left: 16px;
+  background:
+    linear-gradient(90deg, rgba(166, 41, 41, 0.06), transparent 80%);
+}
+
+.deck-card .deck-bio {
+  color: var(--ink-soft);
+  font-family: "Be Vietnam Pro", sans-serif;
+}
+
+.conflict-tile {
+  background:
+    linear-gradient(180deg, var(--surface-lowest), var(--surface-low));
+  border: 1px solid var(--wood-light);
+  border-radius: 6px;
+  box-shadow: inset 0 0 0 1px var(--gold-soft);
+}
+
+.conflict-tile > span {
+  font-family: "Noto Serif", serif;
+  letter-spacing: 0.18em;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+
+.conflict-tile strong {
+  color: var(--cinnabar);
+  font-family: "Noto Serif", serif;
+}
+
+.conflict-tile .material-symbols-outlined {
+  color: var(--cinnabar-bright);
+  text-transform: none;
+  letter-spacing: 0;
+  font-family: "Material Symbols Outlined";
+}
+
+.trait-row span {
+  background: var(--surface-lowest);
+  border: 1px solid var(--wood-light);
+  color: var(--ink-soft);
+  font-family: "Noto Serif", serif;
+  font-style: italic;
+  padding: 4px 12px;
+  box-shadow: 0 1px 0 var(--gold-soft);
+}
+
+/* Image hero gets a subtle inset frame */
+.art.image-art img {
+  filter: sepia(0.18) saturate(1.05) contrast(1.04);
+}
+
+.profile-gallery::before {
+  height: 150px;
+  background:
+    linear-gradient(to bottom, transparent, rgba(44, 28, 13, 0.34) 68%, rgba(44, 28, 13, 0.58));
+}
+
+.profile-gallery .tag {
+  left: auto;
+  right: 24px;
+}
+
+.gallery-arrow {
+  background:
+    linear-gradient(180deg, rgba(250, 240, 210, 0.86), rgba(214, 189, 134, 0.78));
+  border-color: var(--wood-light);
+  color: var(--cinnabar);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 248, 220, 0.82),
+    0 8px 18px rgba(44, 28, 13, 0.28);
+}
+
+.gallery-arrow:hover {
+  background: var(--surface-lowest);
+}
+
+.gallery-dots {
+  padding: 8px 12px;
+  border: 1px solid rgba(250, 240, 210, 0.5);
+  border-radius: 999px;
+  background: rgba(44, 28, 13, 0.38);
+  box-shadow: 0 8px 18px rgba(44, 28, 13, 0.2);
+}
+
+.gallery-dots button {
+  background: rgba(250, 240, 210, 0.48);
+}
+
+.gallery-dots button.active {
+  background: var(--gold-bright);
+}
+
+.art.image-art::after {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px solid var(--gold-soft);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.art .tag {
+  background: var(--cinnabar-bright);
+  color: var(--surface-lowest);
+  font-family: "Noto Serif", serif;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  border: 1px solid var(--surface-lowest);
+  box-shadow: 0 0 0 1px var(--cinnabar);
+}
+
+/* ============================================================
+ * Buttons — carved chops
+ * ============================================================ */
+.btn {
+  font-family: "Noto Serif", serif;
+  letter-spacing: 0.04em;
+  border-radius: 6px;
+  transition: transform 120ms ease, box-shadow 120ms ease,
+              background 160ms ease, color 160ms ease;
+}
+
+.btn.primary {
+  background:
+    linear-gradient(180deg, var(--cinnabar-bright), var(--cinnabar-deep));
+  color: var(--surface-lowest);
+  border: 1px solid var(--cinnabar-deep);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 220, 180, 0.35),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.18),
+    0 2px 6px rgba(91, 0, 5, 0.35);
+  font-weight: 600;
+}
+
+.btn.primary:hover {
+  background:
+    linear-gradient(180deg, #c33333, var(--cinnabar));
+  transform: translateY(-1px);
+}
+
+.btn.secondary {
+  background:
+    linear-gradient(180deg, var(--surface-lowest), var(--surface-low));
+  color: var(--cinnabar);
+  border: 1px solid var(--wood-light);
+  box-shadow: inset 0 0 0 1px var(--gold-soft);
+}
+
+.btn.secondary:hover {
+  background:
+    linear-gradient(180deg, var(--surface-low), var(--surface-mid));
+}
+
+.btn.ghost {
+  background: transparent;
+  color: var(--ink-soft);
+  border: 1px dashed var(--wood-light);
+}
+
+.btn.ghost:hover {
+  background: rgba(122, 79, 44, 0.08);
+  color: var(--cinnabar);
+}
+
+.btn.circle {
+  border-radius: 999px;
+  width: 60px;
+  height: 60px;
+}
+
+.btn.circle.primary {
+  box-shadow:
+    inset 0 2px 0 rgba(255, 220, 180, 0.4),
+    inset 0 -3px 0 rgba(0, 0, 0, 0.2),
+    0 4px 12px rgba(91, 0, 5, 0.4);
+}
+
+.btn.circle.ghost {
+  background: var(--surface-lowest);
+  border: 1px solid var(--wood-light);
+}
+
+/* ============================================================
+ * Stats, panels, side rails
+ * ============================================================ */
+.panel.stat {
+  background:
+    linear-gradient(180deg, var(--surface-lowest), var(--paper));
+  border: 1px solid var(--wood-light);
+  box-shadow: inset 0 0 0 1px var(--gold-soft);
+  border-radius: 6px;
+  text-align: center;
+}
+
+.panel.stat strong {
+  font-family: "Noto Serif", serif;
+  color: var(--cinnabar);
+  font-size: 28px;
+}
+
+.panel.stat span {
+  font-family: "Noto Serif", serif;
+  color: var(--muted);
+  font-style: italic;
+  letter-spacing: 0.06em;
+}
+
+.source-panel {
+  background:
+    linear-gradient(180deg, rgba(250, 240, 210, 0.95), rgba(231, 211, 164, 0.85));
+  border: 1px solid var(--wood-light);
+  box-shadow: inset 0 0 0 1px var(--gold-soft), var(--shadow);
+}
+
+.source-panel h2 {
+  color: var(--cinnabar);
+  font-family: "Noto Serif", serif;
+}
+
+.source-book {
+  background: var(--surface-lowest);
+  border: 1px solid var(--wood-light);
+  box-shadow: inset 0 0 0 1px var(--gold-soft);
+}
+
+.source-book strong {
+  color: var(--cinnabar);
+  font-family: "Noto Serif", serif;
+}
+
+.source-book .material-symbols-outlined {
+  color: var(--gold);
+}
+
+.source-list .source-item {
+  background:
+    linear-gradient(90deg, rgba(166, 41, 41, 0.05), transparent);
+  border-left: 2px solid var(--cinnabar);
+  color: var(--ink-soft);
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-size: 14px;
+  padding: 10px 12px;
+}
+
+/* ============================================================
+ * Collection cards — wood-frame portraits
+ * ============================================================ */
+.collection-card {
+  border-radius: 6px;
+}
+
+.collection-card .collection-image {
+  background: var(--wood-dark);
+  border-bottom: 1px solid var(--wood);
+}
+
+.collection-card .collection-image img {
+  filter: sepia(0.15) contrast(1.05);
+}
+
+.collection-status {
+  background: var(--surface-lowest);
+  border: 1px solid var(--wood-light);
+  color: var(--cinnabar);
+  font-family: "Noto Serif", serif;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  font-size: 11px;
+}
+
+.collection-status .material-symbols-outlined {
+  color: var(--gold);
+}
+
+.collection-progress {
+  background: rgba(122, 79, 44, 0.18);
+  height: 6px;
+  border-radius: 3px;
+  border: 1px solid var(--wood-light);
+}
+
+.collection-progress span {
+  background:
+    linear-gradient(90deg, var(--gold), var(--cinnabar-bright));
+  border-radius: 3px;
+  height: 100%;
+  display: block;
+}
+
+.badge {
+  background: var(--surface-lowest);
+  border: 1px solid var(--wood-light);
+  font-family: "Noto Serif", serif;
+  font-style: italic;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+}
+
+.badge.done {
+  background:
+    linear-gradient(180deg, #f3d777, var(--gold));
+  border-color: var(--cinnabar);
+  color: var(--cinnabar-deep);
+  font-weight: 600;
+}
+
+.badge.pending {
+  background: var(--surface-lowest);
+  color: var(--muted);
+}
+
+/* ============================================================
+ * Chat — scroll thread
+ * ============================================================ */
+.chat-card {
+  background:
+    linear-gradient(180deg, var(--surface-lowest), var(--paper));
+  border: 1px solid var(--wood-light);
+  box-shadow: inset 0 0 0 1px var(--gold-soft), var(--shadow);
+}
+
+.chat-header {
+  border-bottom: 1px dashed var(--wood-light);
+}
+
+.chat-thread {
+  gap: 24px;
+  padding: 48px 40px 44px;
+}
+
+.chat-identity {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.chat-identity h1 {
+  font-size: 30px;
+  line-height: 1.08;
+}
+
+.chat-identity p {
+  display: flex;
+  align-items: center;
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-weight: 600;
+}
+
+.character-profile-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 220px;
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 1px solid var(--wood-light);
+  border-radius: 999px;
+  background:
+    linear-gradient(180deg, rgba(250, 240, 210, 0.96), rgba(231, 211, 164, 0.78));
+  box-shadow: inset 0 0 0 1px var(--gold-soft);
+  color: var(--gold);
+}
+
+.character-profile-card span {
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+}
+
+.character-profile-card strong {
+  overflow: hidden;
+  color: var(--cinnabar);
+  font-family: "Noto Serif", serif;
+  font-style: italic;
+  line-height: 1.1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.character-profile-card small {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chapter-pill {
+  background:
+    linear-gradient(180deg, var(--surface-lowest), var(--surface-low));
+  border: 1px solid var(--wood-light);
+  box-shadow: inset 0 0 0 1px var(--gold-soft);
+  color: var(--cinnabar);
+  font-family: "Noto Serif", serif;
+  font-style: italic;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-size: 11px;
+  padding: 6px 16px;
+  border-radius: 999px;
+}
+
+.message.user {
+  background:
+    linear-gradient(180deg, var(--cinnabar), var(--cinnabar-deep));
+  color: var(--surface-lowest);
+  border: 1px solid var(--cinnabar-deep);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 220, 180, 0.25),
+    0 2px 4px rgba(91, 0, 5, 0.2);
+  font-family: "Noto Serif", serif;
+}
+
+.message.bot {
+  background: var(--surface-lowest);
+  border: 1px solid var(--wood-light);
+  box-shadow: inset 0 0 0 1px var(--gold-soft);
+  color: var(--ink);
+  font-family: "Noto Serif", serif;
+}
+
+.work-pill {
+  background: var(--surface-lowest);
+  border: 1px solid var(--wood-light);
+  color: var(--cinnabar);
+  font-family: "Noto Serif", serif;
+  font-style: italic;
+  font-weight: 600;
+}
+
+.work-pill .material-symbols-outlined {
+  color: var(--gold);
+}
+
+.chat-form {
+  background:
+    linear-gradient(180deg, transparent, rgba(231, 211, 164, 0.4));
+  border-top: 1px dashed var(--wood-light);
+}
+
+.chat-form input,
+.chat-form textarea {
+  background: var(--surface-lowest);
+  border: 1px solid var(--wood-light);
+  box-shadow: inset 0 1px 2px rgba(58, 36, 18, 0.12);
+  font-family: "Noto Serif", serif;
+  color: var(--ink);
+}
+
+.chat-form textarea {
+  max-height: 132px;
+  line-height: 1.45;
+  overflow-y: auto;
+  resize: vertical;
+  white-space: pre-wrap;
+}
+
+.chat-form input::placeholder,
+.chat-form textarea::placeholder {
+  color: var(--muted);
+  font-style: italic;
+}
+
+.literary-chat-form {
+  align-items: center;
+}
+
+.literary-chat-form .quick-row {
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  background:
+    linear-gradient(180deg, var(--surface-lowest), var(--surface-low));
+  border: 1px solid var(--wood-light);
+  color: var(--cinnabar);
+  font-family: "Noto Serif", serif;
+  font-style: italic;
+  letter-spacing: 0.04em;
+}
+
+.literary-chip {
+  min-height: 36px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-size: 14px;
+  line-height: 1.25;
+  text-align: left;
+  white-space: normal;
+}
+
+.chip:hover,
+.chip.active {
+  background:
+    linear-gradient(180deg, var(--gold-bright), var(--gold));
+  border-color: var(--cinnabar);
+  color: var(--cinnabar-deep);
+}
+
+.online-dot {
+  background: var(--cinnabar-bright);
+  box-shadow: 0 0 0 3px rgba(165, 34, 34, 0.25);
+}
+
+.typing-line {
+  color: var(--muted);
+  font-family: "Noto Serif", serif;
+  font-style: italic;
+}
+
+.deeper-button,
+.send-button {
+  min-height: 48px;
+  white-space: nowrap;
+}
+
+.send-button {
+  padding-inline: 16px;
+  border-style: solid;
+  background: rgba(250, 240, 210, 0.45);
+}
+
+.insight-panel {
+  display: grid;
+  gap: 28px;
+  padding: 28px 24px;
+}
+
+.insight-panel section {
+  display: grid;
+  gap: 14px;
+}
+
+.insight-panel h2 {
+  font-size: 22px;
+  line-height: 1.18;
+}
+
+.theme-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.theme-tags button,
+.symbol-list button {
+  border: 1px solid var(--wood-light);
+  background: rgba(250, 240, 210, 0.72);
+  color: var(--ink-soft);
+  cursor: pointer;
+  font: inherit;
+  transition: background 160ms ease, border-color 160ms ease,
+              color 160ms ease, transform 120ms ease;
+}
+
+.theme-tags button:hover,
+.symbol-list button:hover {
+  border-color: var(--cinnabar);
+  background: rgba(230, 200, 124, 0.42);
+  color: var(--cinnabar-deep);
+  transform: translateY(-1px);
+}
+
+.theme-tags button {
+  min-height: 32px;
+  padding: 6px 11px;
+  border-radius: 999px;
+  font-family: "Noto Serif", serif;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.symbol-list {
+  display: grid;
+  gap: 9px;
+}
+
+.symbol-list button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 42px;
+  padding: 9px 12px;
+  border-radius: 6px;
+  font-family: "Be Vietnam Pro", sans-serif;
+  text-align: left;
+}
+
+.symbol-list button::after {
+  content: "→";
+  color: var(--gold);
+  font-family: "Noto Serif", serif;
+}
+
+@media (max-width: 859px) {
+  .chat-card {
+    min-height: auto;
+  }
+
+  .chat-header {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 22px;
+  }
+
+  .character-profile-card {
+    max-width: 100%;
+  }
+
+  .chat-thread {
+    gap: 20px;
+    padding: 32px 20px;
+  }
+
+  .message {
+    max-width: 100%;
+    padding: 18px 20px;
+    font-size: 16px;
+  }
+
+  .literary-chat-form {
+    grid-template-columns: 1fr;
+    padding: 22px;
+  }
+
+  .deeper-button,
+  .send-button {
+    width: 100%;
+  }
+
+  .insight-panel {
+    padding: 24px 20px;
+  }
+}
+
+.understanding {
+  background:
+    linear-gradient(90deg, var(--surface-low), var(--surface-lowest));
+  border: 1px solid var(--wood-light);
+  color: var(--ink-soft);
+  font-family: "Noto Serif", serif;
+}
+
+.understanding strong {
+  color: var(--cinnabar);
+}
+
+.understanding i {
+  background:
+    linear-gradient(90deg, var(--gold), var(--cinnabar-bright));
+}
+
+/* ============================================================
+ * Challenge — exam scroll
+ * ============================================================ */
+.challenge-progress-top {
+  background: rgba(122, 79, 44, 0.18);
+  border: 1px solid var(--wood-light);
+}
+
+.challenge-progress-top span {
+  background:
+    linear-gradient(90deg, var(--gold), var(--cinnabar-bright));
+}
+
+.reference-challenge .headline-lg {
+  margin: 0 0 clamp(24px, 3.2vw, 42px);
+}
+
+.challenge-card {
+  padding-block: clamp(54px, 6vw, 76px);
+}
+
+.challenge-card .question {
+  font-family: "Noto Serif", serif;
+  color: var(--cinnabar-deep);
+  font-weight: 600;
+  margin-bottom: clamp(34px, 4vw, 48px);
+}
+
+.option {
+  background:
+    linear-gradient(180deg, var(--surface-lowest), var(--paper));
+  border: 1px solid var(--wood-light);
+  box-shadow: inset 0 0 0 1px var(--gold-soft);
+  color: var(--ink);
+  font-family: "Noto Serif", serif;
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+
+.option strong {
+  background:
+    linear-gradient(180deg, var(--gold), var(--gold-soft));
+  color: var(--cinnabar-deep);
+  border: 1px solid var(--cinnabar);
+  font-family: "Noto Serif", serif;
+}
+
+.option:hover {
+  transform: translateX(2px);
+  border-color: var(--cinnabar-bright);
+}
+
+.option.active {
+  background:
+    linear-gradient(180deg, #fce6b8, var(--gold-soft));
+  border-color: var(--cinnabar);
+  box-shadow:
+    inset 0 0 0 1px var(--cinnabar),
+    0 2px 6px rgba(91, 0, 5, 0.18);
+}
+
+.option.active strong {
+  background:
+    linear-gradient(180deg, var(--cinnabar-bright), var(--cinnabar-deep));
+  color: var(--surface-lowest);
+}
+
+.option .material-symbols-outlined {
+  color: var(--cinnabar-bright);
+}
+
+.info-block {
+  background:
+    linear-gradient(180deg, var(--surface-lowest), var(--paper));
+  border: 1px solid var(--wood-light);
+  box-shadow: inset 0 0 0 1px var(--gold-soft);
+  border-radius: 6px;
+}
+
+.info-block h3 {
+  color: var(--cinnabar);
+  font-family: "Noto Serif", serif;
+  letter-spacing: 0.06em;
+}
+
+.result-list .info-block p {
+  color: var(--ink-soft);
+}
+
+@media (max-width: 720px) {
+  .reference-challenge .headline-lg {
+    margin-bottom: 24px;
+  }
+
+  .challenge-card {
+    padding-block: 46px;
+  }
+}
+
+/* ============================================================
+ * Leaderboard — wood ranking tablet
+ * ============================================================ */
+.leader-tabs button {
+  font-family: "Noto Serif", serif;
+  font-style: italic;
+  color: var(--ink-soft);
+  background: transparent;
+  border: none;
+  padding: 8px 18px;
+  border-bottom: 2px solid transparent;
+  letter-spacing: 0.04em;
+}
+
+.leader-tabs button.active {
+  color: var(--cinnabar);
+  font-weight: 700;
+  border-bottom-color: var(--cinnabar-bright);
+}
+
+.leaderboard {
+  padding: 0;
+  overflow: hidden;
+}
+
+.leader-row {
+  border-bottom: 1px solid var(--wood-light);
+  font-family: "Noto Serif", serif;
+}
+
+.leader-row.header {
+  background:
+    linear-gradient(180deg, var(--wood-light), var(--wood));
+  color: var(--surface-lowest);
+  font-family: "Noto Serif", serif;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.leader-row.current {
+  background:
+    linear-gradient(90deg, rgba(198, 154, 62, 0.25), rgba(166, 41, 41, 0.08));
+  font-weight: 600;
+  color: var(--cinnabar-deep);
+}
+
+.leader-row .rank {
+  color: var(--cinnabar);
+  font-family: "Noto Serif", serif;
+  font-weight: 700;
+}
+
+.leader-avatar {
+  background:
+    linear-gradient(180deg, var(--gold), var(--gold-soft));
+  border: 1px solid var(--cinnabar);
+  color: var(--cinnabar-deep);
+  font-family: "Noto Serif", serif;
+  font-weight: 700;
+}
+
+/* ============================================================
+ * Onboarding — first scroll
+ * ============================================================ */
+.onboarding-screen {
+  background:
+    radial-gradient(
+      ellipse at center,
+      var(--surface) 0%,
+      rgba(184, 155, 101, 0.4) 100%
+    ),
+    var(--paper-grain);
+  background-attachment: fixed, fixed;
+}
+
+.onboarding-card {
+  background:
+    linear-gradient(180deg, var(--surface-lowest), var(--paper));
+  border: 1px solid var(--wood-light);
+  box-shadow:
+    inset 0 0 0 1px var(--gold-soft),
+    inset 0 0 0 6px var(--surface-lowest),
+    inset 0 0 0 7px var(--gold-soft),
+    var(--shadow-deep);
+  position: relative;
+}
+
+.onboarding-card::before,
+.onboarding-card::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--cinnabar);
+}
+
+.onboarding-card::before {
+  top: 12px;
+  left: 12px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.onboarding-card::after {
+  bottom: 12px;
+  right: 12px;
+  border-left: none;
+  border-top: none;
+}
+
+.onboarding-card .kicker {
+  display: block;
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+.onboarding-card .headline-lg {
+  text-align: center;
+  margin: 4px 0 12px;
+}
+
+.onboarding-card .lead {
+  text-align: center;
+}
+
+.onboarding-form input {
+  background: var(--surface-lowest);
+  border: 1px solid var(--wood-light);
+  box-shadow: inset 0 1px 2px rgba(58, 36, 18, 0.1);
+  font-family: "Noto Serif", serif;
+}
+
+.onboarding-form input:focus-visible {
+  outline: 2px solid var(--cinnabar-bright);
+  outline-offset: 2px;
+}
+
+.onboarding-form .field > span {
+  color: var(--cinnabar);
+  font-family: "Noto Serif", serif;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+/* ============================================================
+ * Sort dropdown — small lacquer card
+ * ============================================================ */
+.sort-control span {
+  color: var(--cinnabar);
+  font-family: "Noto Serif", serif;
+  font-style: italic;
+  letter-spacing: 0.06em;
+}
+
+.sort-options {
+  background: var(--surface-lowest);
+  border: 1px solid var(--wood-light);
+  box-shadow: inset 0 0 0 1px var(--gold-soft), var(--shadow);
+}
+
+.sort-options button {
+  font-family: "Noto Serif", serif;
+  color: var(--ink);
+}
+
+.sort-options button:hover {
+  background: rgba(166, 41, 41, 0.08);
+  color: var(--cinnabar);
+}
+
+.sort-options button.active {
+  background:
+    linear-gradient(90deg, rgba(198, 154, 62, 0.35), transparent);
+  color: var(--cinnabar-deep);
+}
+
+/* ============================================================
+ * Mobile bottom nav
+ * ============================================================ */
+.mobile-nav {
+  background:
+    linear-gradient(180deg, rgba(250, 240, 210, 0.95), rgba(231, 211, 164, 0.95));
+  border-top: 1px solid var(--wood-light);
+  box-shadow: 0 -1px 0 var(--gold-soft);
+}
+
+.mobile-nav .nav-link {
+  color: var(--ink-soft);
+}
+
+.mobile-nav .nav-link.active {
+  color: var(--cinnabar);
+  background: transparent;
+  box-shadow: inset 0 -3px 0 var(--cinnabar-bright);
+  border-radius: 0;
+}
+
+/* ============================================================
+ * Avatars
+ * ============================================================ */
+.avatar.image-avatar {
+  filter: sepia(0.15) contrast(1.04);
+  border: 1px solid var(--gold-soft);
+  box-shadow: 0 2px 4px rgba(58, 36, 18, 0.18);
+}
+
+.message-avatar.fallback {
+  background:
+    linear-gradient(180deg, var(--gold), var(--cinnabar-bright));
+  color: var(--surface-lowest);
+  font-family: "Noto Serif", serif;
+  font-weight: 700;
+  border: 1px solid var(--cinnabar-deep);
+}
+
+/* ============================================================
+ * Profile
+ * ============================================================ */
+.profile-card .headline-lg {
+  color: var(--cinnabar-deep);
+}
+
+/* ============================================================
+ * Errors
+ * ============================================================ */
+.chat-error {
+  background:
+    linear-gradient(180deg, #f7d7c8, #ecbcaa);
+  color: var(--cinnabar-deep);
+  border: 1px solid var(--cinnabar);
+  font-family: "Noto Serif", serif;
+}
+
+/* ============================================================
+ * Decorative ornament — reusable
+ * ============================================================ */
+.ornament-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--gold);
+  font-family: "Noto Serif", serif;
+  letter-spacing: 0.16em;
+  font-size: 11px;
+  text-transform: uppercase;
+  margin: 12px 0;
+}
+
+.ornament-divider::before,
+.ornament-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--gold-soft),
+    transparent
+  );
+}
+
+/* ============================================================
+ * Page vignette wrapper
+ * ============================================================ */
+.page {
+  position: relative;
+}
+
+/* ============================================================
+ * Voice play button — sits next to character quote
+ * ============================================================ */
+.quote-row {
+  position: relative;
+  display: block;
+}
+
+.quote-row .quote {
+  margin: 0;
+  padding-right: 72px;
+}
+
+.quote-row .voice-play-button {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.quote-row .voice-play-button:hover {
+  transform: translateY(-50%) scale(1.06);
+}
+
+.voice-play-button {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface-lowest);
+  border: 1.5px solid var(--cinnabar);
+  color: var(--cinnabar);
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
+  box-shadow: 0 2px 6px rgba(74, 51, 28, 0.18);
+}
+
+.voice-play-button.md {
+  width: 44px;
+  height: 44px;
+}
+
+.voice-play-button.sm {
+  width: 36px;
+  height: 36px;
+}
+
+.voice-play-button .material-symbols-outlined {
+  font-size: 26px;
+  font-variation-settings: "FILL" 0, "wght" 400;
+}
+
+.voice-play-button.sm .material-symbols-outlined {
+  font-size: 22px;
+}
+
+.voice-play-button:hover {
+  background: var(--cinnabar);
+  color: var(--surface-lowest);
+  transform: scale(1.04);
+}
+
+.voice-play-button.playing {
+  background: var(--cinnabar);
+  color: var(--surface-lowest);
+  animation: voice-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes voice-pulse {
+  0%,
+  100% {
+    box-shadow: 0 2px 6px rgba(74, 51, 28, 0.18),
+      0 0 0 0 rgba(122, 28, 28, 0.35);
+  }
+  50% {
+    box-shadow: 0 2px 6px rgba(74, 51, 28, 0.18),
+      0 0 0 8px rgba(122, 28, 28, 0);
+  }
+}
+
+.voice-play-button:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* ============================================================
+ * Collection card — link affordances on portrait + name
+ * ============================================================ */
+.collection-image-link {
+  display: block;
+  position: relative;
+  cursor: pointer;
+}
+
+.collection-image-link:hover img {
+  filter: sepia(0.05) contrast(1.08) brightness(1.04);
+}
+
+.collection-name-link {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dashed transparent;
+  transition: border-color 0.18s ease, color 0.18s ease;
+}
+
+.collection-name-link:hover,
+.collection-name-link:focus-visible {
+  color: var(--cinnabar);
+  border-bottom-color: var(--gold-soft);
+}
+
+/* ============================================================
+ * Character profile route — full hồ sơ for matched characters
+ * ============================================================ */
+.reference-character-profile {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.reference-character-profile .back-link {
+  align-self: flex-start;
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.reference-character-profile .back-link .material-symbols-outlined {
+  margin-right: 4px;
+  font-size: 18px;
+}
+
+.character-profile {
+  padding: clamp(28px, 5vw, 48px);
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+}
+
+.character-profile-hero {
+  display: grid;
+  grid-template-columns: minmax(190px, 240px) minmax(0, 1fr);
+  gap: clamp(28px, 5vw, 54px);
+  align-items: center;
+}
+
+.character-profile-portrait {
+  border: 1px solid var(--wood-light);
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--wood-dark);
+  aspect-ratio: 3 / 4;
+  position: relative;
+  box-shadow:
+    0 18px 34px -18px rgba(58, 36, 18, 0.58),
+    0 0 0 8px rgba(250, 240, 210, 0.52);
+}
+
+.character-profile-portrait::after {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border: 1px solid var(--gold-soft);
+  pointer-events: none;
+  border-radius: 2px;
+  opacity: 0.7;
+}
+
+.character-profile-portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: sepia(0.15) contrast(1.05);
+}
+
+.character-profile-heading .kicker {
+  color: var(--muted);
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0 0 10px;
+}
+
+.character-profile-heading .headline-lg {
+  margin: 0;
+  color: var(--cinnabar);
+  font-size: clamp(46px, 8vw, 78px);
+  line-height: 0.98;
+  letter-spacing: 0.01em;
+}
+
+.profile-location {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin: 20px 0 0;
+  color: var(--ink-soft);
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.profile-location .material-symbols-outlined {
+  color: var(--cinnabar);
+  font-size: 18px;
+}
+
+.profile-summary {
+  max-width: 620px;
+  margin: 18px 0 0;
+  color: var(--ink-soft);
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-size: clamp(16px, 2vw, 19px);
+  line-height: 1.72;
+}
+
+.profile-quote-card {
+  max-width: 780px;
+  min-height: 0;
+  margin: 0;
+  padding: 22px 76px 22px 28px;
+  border-left: 4px solid var(--cinnabar);
+  border-radius: 6px;
+  background:
+    linear-gradient(90deg, rgba(166, 41, 41, 0.055), rgba(255, 248, 220, 0.42) 72%),
+    rgba(250, 240, 210, 0.42);
+  box-shadow: inset 0 0 0 1px rgba(184, 155, 101, 0.22);
+}
+
+.profile-quote {
+  margin: 0;
+  padding-right: 0;
+  color: var(--cinnabar-deep);
+  font-family: "Noto Serif", serif;
+  font-size: clamp(19px, 2.2vw, 25px);
+  font-weight: 600;
+  line-height: 1.55;
+  letter-spacing: 0;
+}
+
+.character-profile-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(220px, 0.75fr);
+  gap: 34px 46px;
+}
+
+.character-profile-grid .profile-section:first-child,
+.profile-section-featured {
+  grid-column: 1 / -1;
+}
+
+.profile-section h2 {
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--cinnabar);
+  margin: 0 0 10px;
+}
+
+.profile-section p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-size: 16px;
+  line-height: 1.78;
+}
+
+.profile-traits {
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.profile-traits span,
+.profile-analysis-tags span {
+  min-height: 34px;
+  padding: 7px 14px;
+  background: rgba(250, 240, 210, 0.54);
+  border: 1px solid rgba(122, 79, 44, 0.34);
+  box-shadow: none;
+  color: var(--ink-soft);
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 600;
+}
+
+.profile-analysis {
+  border-top: 1px solid rgba(184, 155, 101, 0.48);
+  border-bottom: 1px solid rgba(184, 155, 101, 0.34);
+  padding: 4px 0;
+}
+
+.profile-analysis summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 0;
+  color: var(--cinnabar);
+  cursor: pointer;
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  list-style: none;
+  text-transform: uppercase;
+}
+
+.profile-analysis summary::-webkit-details-marker {
+  display: none;
+}
+
+.profile-analysis summary .material-symbols-outlined {
+  color: var(--gold);
+  font-size: 22px;
+  transition: transform 160ms ease;
+}
+
+.profile-analysis[open] summary .material-symbols-outlined {
+  transform: rotate(180deg);
+}
+
+.profile-analysis-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 26px 42px;
+  padding: 10px 0 22px;
+}
+
+.profile-analysis-grid .profile-section:first-child,
+.profile-analysis-grid .profile-section:nth-child(3) {
+  grid-column: 1 / -1;
+}
+
+.profile-sources {
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  color: var(--ink-soft);
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.profile-sources li::marker {
+  color: var(--cinnabar);
+}
+
+.character-profile-actions {
+  border-top: 0;
+  padding-top: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.character-profile-actions .btn {
+  font-family: "Be Vietnam Pro", sans-serif;
+  min-height: 48px;
+  letter-spacing: 0;
+}
+
+.character-profile-actions .btn.primary {
+  padding-inline: 22px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 220, 180, 0.34),
+    0 10px 18px -12px rgba(91, 0, 5, 0.72);
+}
+
+.character-profile-actions .btn.secondary {
+  background: rgba(250, 240, 210, 0.32);
+  box-shadow: none;
+  color: var(--cinnabar);
+}
+
+.character-profile-actions .material-symbols-outlined {
+  margin-right: 4px;
+  font-size: 18px;
+}
+
+.profile-progress-note {
+  flex-basis: 100%;
+  margin: 2px 0 0;
+  color: var(--muted);
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-size: 12px;
+}
+
+@media (max-width: 720px) {
+  .character-profile {
+    padding: 28px 20px;
+    gap: 28px;
+  }
+
+  .character-profile-hero {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .character-profile-portrait {
+    width: min(72%, 260px);
+    margin: 0 auto;
+  }
+
+  .character-profile-heading {
+    text-align: left;
+  }
+
+  .character-profile-heading .headline-lg {
+    font-size: clamp(40px, 14vw, 56px);
+  }
+
+  .profile-quote-card {
+    padding: 20px 66px 20px 20px;
+  }
+
+  .character-profile-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .character-profile-grid .profile-section:nth-child(n),
+  .profile-analysis-grid .profile-section:nth-child(n) {
+    grid-column: 1 / -1;
+  }
+
+  .profile-analysis-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .character-profile-actions {
+    align-items: stretch;
+  }
+
+  .character-profile-actions .btn {
+    width: 100%;
+  }
+}
+
+/* ============================================================
+ * Music settings card — scholar's wooden music box
+ *
+ * Aesthetic: a lacquered folk-print panel with three carved
+ * sections — a brass-pull lamp switch, sealed scroll panels for
+ * each track, and a carved bamboo groove for the volume.
+ * ============================================================ */
+.music-settings {
+  margin-top: 22px;
+  padding: 18px 24px;
+  position: relative;
+  overflow: hidden;
+  transition: padding 220ms ease;
+}
+
+.music-settings.is-expanded {
+  padding: 26px 32px 30px;
+}
+
+.music-settings::before,
+.music-settings::after {
+  border-color: var(--cinnabar-bright);
+}
+
+.music-settings-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 28px;
+  align-items: center;
+}
+
+/* Summary button — clickable header strip that expands the panel */
+.music-settings-summary {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  background: none;
+  border: 0;
+  padding: 6px 16px 6px 4px;
+  margin: 0;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  border-radius: 4px;
+  transition: background 180ms ease;
+  min-width: 0;
+}
+
+.music-settings-summary:hover {
+  background: rgba(166, 41, 41, 0.05);
+}
+
+.music-settings-summary:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
+
+.music-settings-intro {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.music-settings-intro .kicker {
+  margin: 0;
+  display: block;
+}
+
+.music-settings-title {
+  font-family: "Noto Serif", serif;
+  color: var(--cinnabar-deep);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  margin: 0;
+  position: relative;
+  display: inline-block;
+  padding-right: 18px;
+  line-height: 1.15;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.music-settings.is-expanded .music-settings-title {
+  font-size: 26px;
+}
+
+.music-settings-title::after {
+  /* small gilded serif flourish */
+  content: "♪";
+  position: absolute;
+  right: -2px;
+  top: -4px;
+  font-size: 13px;
+  color: var(--gold);
+  letter-spacing: 0;
+  transform: rotate(8deg);
+}
+
+.music-settings-status {
+  font-family: "Noto Serif", serif;
+  font-style: italic;
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  margin-top: 2px;
+}
+
+.music-settings.is-expanded .music-settings-status {
+  display: none;
+}
+
+.music-settings-chevron {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--surface-lowest);
+  border: 1px solid var(--wood-light);
+  box-shadow: inset 0 0 0 1px var(--gold-soft);
+  color: var(--cinnabar);
+  transition: transform 220ms cubic-bezier(0.4, 0.2, 0.2, 1.2),
+              background 180ms ease;
+}
+
+.music-settings-summary:hover .music-settings-chevron {
+  background: var(--surface);
+}
+
+.music-settings.is-expanded .music-settings-chevron {
+  transform: rotate(180deg);
+}
+
+.music-settings-lead {
+  margin: 0 0 4px;
+  font-size: 14px;
+  max-width: 56ch;
+}
+
+/* Body — only rendered when expanded; reveal animation */
+.music-settings-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  animation: music-body-reveal 280ms cubic-bezier(0.32, 0.04, 0.32, 1.02);
+}
+
+@keyframes music-body-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================================
+ * Lamp-pull switch — a brass knob in a parchment groove
+ * ============================================================ */
+.music-lamp-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: none;
+  border: 0;
+  padding: 0;
+  font-family: "Noto Serif", serif;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.music-lamp-switch:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 6px;
+  border-radius: 6px;
+}
+
+.music-lamp-track {
+  position: relative;
+  width: 78px;
+  height: 34px;
+  border-radius: 999px;
+  background:
+    linear-gradient(180deg, var(--surface-mid), var(--surface-low) 60%, var(--surface-lowest));
+  border: 1px solid var(--wood);
+  box-shadow:
+    inset 0 1px 2px rgba(58, 36, 18, 0.42),
+    inset 0 0 0 1px rgba(231, 211, 164, 0.55),
+    0 1px 0 rgba(255, 248, 220, 0.7);
+  transition: background 220ms ease, box-shadow 220ms ease;
+  flex-shrink: 0;
+}
+
+.music-lamp-glyph {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  transition: opacity 220ms ease, color 220ms ease;
+}
+
+.music-lamp-glyph--off {
+  left: 11px;
+  color: var(--wood-light);
+  opacity: 0.85;
+}
+
+.music-lamp-glyph--on {
+  right: 11px;
+  color: var(--cinnabar-bright);
+  opacity: 0.45;
+}
+
+.music-lamp-knob {
+  position: absolute;
+  top: 50%;
+  left: 3px;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  transform: translateY(-50%);
+  background:
+    radial-gradient(circle at 32% 30%, var(--gold-bright), var(--gold) 55%, var(--wood-light) 102%);
+  border: 1px solid var(--wood);
+  box-shadow:
+    0 2px 4px rgba(58, 36, 18, 0.42),
+    inset 0 1px 0 rgba(255, 244, 214, 0.78),
+    inset 0 -2px 2px rgba(58, 36, 18, 0.32);
+  transition: left 240ms cubic-bezier(0.55, 0.04, 0.32, 1.16),
+              box-shadow 220ms ease, transform 220ms ease, background 220ms ease;
+}
+
+.music-lamp-knob-inset {
+  position: absolute;
+  inset: 6px;
+  border-radius: 999px;
+  border: 1px solid rgba(58, 36, 18, 0.32);
+  background:
+    radial-gradient(circle at 50% 38%, rgba(255, 244, 214, 0.5), transparent 70%);
+}
+
+.music-lamp-switch.is-on .music-lamp-track {
+  background:
+    linear-gradient(180deg, #f4d6a6, #ecc683 55%, #d8a55b);
+  border-color: var(--cinnabar-deep);
+  box-shadow:
+    inset 0 1px 2px rgba(91, 0, 5, 0.32),
+    inset 0 0 0 1px rgba(255, 244, 214, 0.78),
+    0 0 0 3px rgba(198, 154, 62, 0.15);
+}
+
+.music-lamp-switch.is-on .music-lamp-knob {
+  left: calc(100% - 31px);
+  background:
+    radial-gradient(circle at 30% 32%, #ffeac6, #e6c87c 55%, var(--cinnabar-bright) 102%);
+  box-shadow:
+    0 2px 6px rgba(91, 0, 5, 0.5),
+    inset 0 1px 0 rgba(255, 244, 214, 0.85),
+    inset 0 -2px 2px rgba(91, 0, 5, 0.32),
+    0 0 0 3px rgba(166, 41, 41, 0.18);
+}
+
+.music-lamp-switch.is-on .music-lamp-glyph--off {
+  opacity: 0.25;
+}
+
+.music-lamp-switch.is-on .music-lamp-glyph--on {
+  opacity: 1;
+  filter: drop-shadow(0 0 6px rgba(166, 41, 41, 0.55));
+  animation: lamp-flicker 2.4s ease-in-out infinite;
+}
+
+@keyframes lamp-flicker {
+  0%, 100% { transform: translateY(-50%) scale(1); opacity: 1; }
+  44% { transform: translateY(-52%) scale(1.05); opacity: 0.92; }
+  64% { transform: translateY(-48%) scale(0.97); opacity: 0.86; }
+}
+
+.music-lamp-switch:hover .music-lamp-knob {
+  transform: translateY(-50%) scale(1.04);
+}
+
+.music-lamp-switch:active .music-lamp-knob {
+  transform: translateY(-50%) scale(0.96);
+}
+
+.music-lamp-label {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  line-height: 1.15;
+  min-width: 92px;
+}
+
+.music-lamp-label strong {
+  font-family: "Noto Serif", serif;
+  color: var(--cinnabar-deep);
+  font-size: 15px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.music-lamp-label small {
+  font-family: "Noto Serif", serif;
+  font-style: italic;
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  margin-top: 3px;
+}
+
+.music-lamp-switch.is-off .music-lamp-label strong {
+  color: var(--muted);
+}
+
+/* ============================================================
+ * Section divider — gold filaments framing a serif label
+ * ============================================================ */
+.music-divider {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 22px 0 14px;
+}
+
+.music-divider::before,
+.music-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background:
+    linear-gradient(to right, transparent, var(--gold-soft), transparent);
+}
+
+.music-divider-mark {
+  font-family: "Noto Serif", serif;
+  font-style: italic;
+  color: var(--cinnabar);
+  font-size: 12px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border: 1px solid var(--gold-soft);
+  border-radius: 2px;
+  background: var(--surface-lowest);
+  box-shadow: inset 0 0 0 2px var(--surface-lowest), 0 1px 0 rgba(255, 244, 214, 0.6);
+  position: relative;
+}
+
+.music-divider-mark::before,
+.music-divider-mark::after {
+  content: "❖";
+  color: var(--gold);
+  font-size: 9px;
+  margin: 0 6px;
+  vertical-align: 2px;
+}
+
+/* ============================================================
+ * Track cards — sealed scroll panels with chosen "印" stamp
+ * ============================================================ */
+.music-track-group {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.music-track-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 18px;
+  padding: 16px 22px 16px 18px;
+  background:
+    linear-gradient(180deg, var(--surface-lowest), var(--paper));
+  border: 1px solid var(--wood-light);
+  border-radius: 6px;
+  box-shadow:
+    inset 0 0 0 1px var(--surface-lowest),
+    inset 0 0 0 2px var(--gold-soft),
+    0 2px 6px rgba(74, 51, 28, 0.12);
+  cursor: pointer;
+  transition: transform 180ms ease, box-shadow 220ms ease,
+              border-color 220ms ease, background 220ms ease;
+  overflow: hidden;
+}
+
+.music-track-card input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.music-track-card::before {
+  /* faint diagonal scroll-paper streaks */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      18deg,
+      rgba(122, 79, 44, 0.04) 0 1px,
+      transparent 1px 14px
+    );
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.music-track-card:hover {
+  transform: translateY(-1px);
+  border-color: var(--gold);
+  box-shadow:
+    inset 0 0 0 1px var(--surface-lowest),
+    inset 0 0 0 2px var(--gold),
+    0 4px 10px rgba(74, 51, 28, 0.18);
+}
+
+.music-track-card.selected {
+  border-color: var(--cinnabar);
+  background:
+    linear-gradient(180deg, #faecc8, #efd8a8);
+  box-shadow:
+    inset 0 0 0 1px var(--surface-lowest),
+    inset 0 0 0 2px var(--cinnabar-bright),
+    0 6px 14px rgba(91, 0, 5, 0.18);
+}
+
+.music-track-card.selected::after {
+  /* tiny serif corner ornament when selected — top-left */
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  width: 12px;
+  height: 12px;
+  border-top: 2px solid var(--cinnabar);
+  border-left: 2px solid var(--cinnabar);
+  pointer-events: none;
+}
+
+.music-track-card input[type="radio"]:focus-visible ~ .music-track-numeral {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
+
+.music-track-numeral {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 32% 30%, var(--surface-lowest), var(--surface-low) 75%);
+  border: 1px solid var(--wood-light);
+  box-shadow:
+    inset 0 0 0 1px var(--gold-soft),
+    inset 0 -2px 0 rgba(58, 36, 18, 0.12);
+  font-family: "Noto Serif", serif;
+  font-style: italic;
+  color: var(--cinnabar);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  position: relative;
+  z-index: 1;
+}
+
+.music-track-card.selected .music-track-numeral {
+  background:
+    radial-gradient(circle at 32% 30%, var(--gold-bright), var(--gold) 80%);
+  color: var(--cinnabar-deep);
+  border-color: var(--cinnabar);
+  box-shadow:
+    inset 0 0 0 1px var(--surface-lowest),
+    inset 0 -2px 0 rgba(91, 0, 5, 0.22);
+}
+
+.music-track-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+}
+
+.music-track-title {
+  font-family: "Noto Serif", serif;
+  color: var(--cinnabar-deep);
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+
+.music-track-mood {
+  font-family: "Noto Serif", serif;
+  font-style: italic;
+  color: var(--ink-soft);
+  font-size: 13px;
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+}
+
+.music-track-card.selected .music-track-mood {
+  color: var(--ink);
+}
+
+.music-track-stamp {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  background: var(--cinnabar-bright);
+  color: var(--surface-lowest);
+  font-family: "Noto Serif", serif;
+  font-weight: 700;
+  font-size: 13px;
+  border: 1px solid var(--surface-lowest);
+  box-shadow:
+    0 0 0 1px var(--cinnabar-deep),
+    0 1px 2px rgba(0, 0, 0, 0.25);
+  border-radius: 3px;
+  transform: rotate(-7deg) scale(0.6);
+  opacity: 0;
+  transition: opacity 220ms ease, transform 240ms cubic-bezier(0.4, 0.2, 0.2, 1.4);
+  pointer-events: none;
+}
+
+.music-track-card.selected .music-track-stamp {
+  opacity: 1;
+  transform: rotate(-7deg) scale(1);
+}
+
+.music-track-preview {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--surface-lowest);
+  border: 1.5px solid var(--cinnabar);
+  color: var(--cinnabar);
+  cursor: pointer;
+  padding: 0;
+  position: relative;
+  z-index: 2;
+  transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease,
+              box-shadow 0.18s ease;
+  box-shadow: 0 2px 6px rgba(74, 51, 28, 0.18);
+}
+
+.music-track-preview .material-symbols-outlined {
+  font-size: 26px;
+  font-variation-settings: "FILL" 0, "wght" 400;
+}
+
+.music-track-preview:hover {
+  background: var(--cinnabar);
+  color: var(--surface-lowest);
+  transform: scale(1.05);
+}
+
+.music-track-preview.playing {
+  background: var(--cinnabar);
+  color: var(--surface-lowest);
+  animation: voice-pulse 1.6s ease-in-out infinite;
+}
+
+.music-track-preview:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* Disabled track group — keep selection visible but mute everything */
+.music-track-group.is-disabled .music-track-card {
+  cursor: not-allowed;
+  filter: saturate(0.55);
+  opacity: 0.6;
+}
+
+.music-track-group.is-disabled .music-track-card:hover {
+  transform: none;
+  border-color: var(--wood-light);
+  box-shadow:
+    inset 0 0 0 1px var(--surface-lowest),
+    inset 0 0 0 2px var(--gold-soft),
+    0 2px 6px rgba(74, 51, 28, 0.12);
+}
+
+.music-track-group.is-disabled .music-track-preview {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.music-track-group.is-disabled .music-track-preview:hover {
+  background: var(--surface-lowest);
+  color: var(--cinnabar);
+  transform: none;
+}
+
+/* ============================================================
+ * Volume row — bamboo groove with gold-fill and brass thumb
+ * ============================================================ */
+.music-volume {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 4px 4px;
+}
+
+.music-volume-icon {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--surface-lowest);
+  border: 1px solid var(--wood-light);
+  box-shadow: inset 0 0 0 1px var(--gold-soft);
+  color: var(--cinnabar);
+}
+
+.music-volume-icon .material-symbols-outlined {
+  font-size: 22px;
+}
+
+.music-volume-track {
+  position: relative;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  --music-volume-fill: 20%;
+}
+
+.music-volume-track::before {
+  content: "";
+  position: absolute;
+  inset: 8px 0;
+  border-radius: 999px;
+  background:
+    linear-gradient(180deg, rgba(58, 36, 18, 0.18), rgba(122, 79, 44, 0.06));
+  border: 1px solid var(--wood-light);
+  box-shadow: inset 0 1px 2px rgba(58, 36, 18, 0.32);
+  pointer-events: none;
+}
+
+.music-volume-track::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: var(--music-volume-fill);
+  background:
+    linear-gradient(180deg, var(--gold-bright), var(--gold));
+  border-radius: 999px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 244, 214, 0.85),
+    inset 0 -1px 0 rgba(91, 0, 5, 0.16);
+  pointer-events: none;
+  transition: width 80ms ease-out;
+}
+
+.music-volume-ticks {
+  position: absolute;
+  inset: 8px 14px;
+  pointer-events: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.music-volume-ticks span {
+  width: 1px;
+  height: 8px;
+  background: rgba(58, 36, 18, 0.32);
+}
+
+.music-volume-slider {
+  position: relative;
+  width: 100%;
+  height: 22px;
+  background: transparent;
+  appearance: none;
+  -webkit-appearance: none;
+  margin: 0;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.music-volume-slider:focus {
+  outline: none;
+}
+
+/* WebKit thumb — brass coin with cinnabar core */
+.music-volume-slider::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 32% 30%, #ffeac6, var(--gold) 50%, var(--cinnabar-bright) 95%);
+  border: 1.5px solid var(--cinnabar-deep);
+  box-shadow:
+    0 2px 5px rgba(91, 0, 5, 0.45),
+    inset 0 1px 0 rgba(255, 244, 214, 0.78),
+    inset 0 -1px 1px rgba(91, 0, 5, 0.32);
+  cursor: grab;
+  transition: transform 140ms ease, box-shadow 140ms ease;
+}
+
+.music-volume-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+}
+
+.music-volume-slider:active::-webkit-slider-thumb {
+  cursor: grabbing;
+  transform: scale(1.06);
+  box-shadow:
+    0 2px 8px rgba(91, 0, 5, 0.55),
+    inset 0 1px 0 rgba(255, 244, 214, 0.78);
+}
+
+.music-volume-slider:focus-visible::-webkit-slider-thumb {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* WebKit track — invisible, the visual track is on the wrapper */
+.music-volume-slider::-webkit-slider-runnable-track {
+  height: 22px;
+  background: transparent;
+}
+
+/* Firefox */
+.music-volume-slider::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 32% 30%, #ffeac6, var(--gold) 50%, var(--cinnabar-bright) 95%);
+  border: 1.5px solid var(--cinnabar-deep);
+  box-shadow:
+    0 2px 5px rgba(91, 0, 5, 0.45),
+    inset 0 1px 0 rgba(255, 244, 214, 0.78);
+  cursor: grab;
+}
+
+.music-volume-slider::-moz-range-track {
+  height: 22px;
+  background: transparent;
+  border: 0;
+}
+
+.music-volume-cartouche {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 2px;
+  background:
+    linear-gradient(180deg, var(--surface-lowest), var(--paper));
+  border: 1px solid var(--wood-light);
+  box-shadow:
+    inset 0 0 0 1px var(--gold-soft),
+    0 1px 2px rgba(74, 51, 28, 0.18);
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-family: "Noto Serif", serif;
+  color: var(--cinnabar);
+  min-width: 64px;
+  justify-content: center;
+}
+
+.music-volume-cartouche strong {
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 0.02em;
+}
+
+.music-volume-cartouche small {
+  color: var(--muted);
+  font-size: 12px;
+  font-style: italic;
+}
+
+.music-volume.is-disabled {
+  opacity: 0.5;
+  filter: saturate(0.55);
+  pointer-events: none;
+}
+
+/* ============================================================
+ * Music card — responsive collapse
+ * ============================================================ */
+@media (max-width: 720px) {
+  .music-settings {
+    padding: 22px 18px 20px;
+  }
+
+  .music-settings-head {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .music-lamp-switch {
+    align-self: flex-start;
+  }
+
+  .music-track-card {
+    grid-template-columns: 44px minmax(0, 1fr) auto;
+    gap: 12px;
+    padding: 14px 16px;
+  }
+
+  .music-track-numeral {
+    width: 44px;
+    height: 44px;
+    font-size: 15px;
+  }
+
+  .music-track-title {
+    font-size: 15px;
+  }
+
+  .music-track-mood {
+    font-size: 12px;
+  }
+
+  .music-volume {
+    gap: 12px;
+  }
+}
+
+/* ============================================================
+ * Chat source citations — small parchment chips beneath bot bubbles
+ * ============================================================ */
+.chat-sources {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chat-source-chip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background: var(--surface-lowest);
+  border: 1px solid var(--gold-soft);
+  box-shadow: inset 0 0 0 1px rgba(255, 244, 214, 0.55);
+  font-family: "Noto Serif", serif;
+  font-size: 11.5px;
+  line-height: 1.3;
+  color: var(--cinnabar-deep);
+  max-width: 100%;
+}
+
+.chat-source-chip::before {
+  content: "❖";
+  color: var(--gold);
+  font-size: 9px;
+  line-height: 1;
+}
+
+.chat-source-title {
+  font-style: italic;
+  font-weight: 600;
+}
+
+.chat-source-snippet {
+  color: var(--muted);
+  font-size: 10.5px;
+  letter-spacing: 0.02em;
+}

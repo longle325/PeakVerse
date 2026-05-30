@@ -1,0 +1,20 @@
+services:
+  postgres:
+    image: pgvector/pgvector:pg17
+    container_name: litmatch-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: litmatch
+    ports:
+      - "5432:5432"
+    volumes:
+      - litmatch-postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d litmatch"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  litmatch-postgres-data:

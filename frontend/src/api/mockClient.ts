@@ -1,0 +1,124 @@
+import { characters, getCharacter } from "@/data/characters";
+import { demoLeaders } from "@/data/leaderboard";
+import { scoreChallenge } from "@/lib/scoring";
+import type {
+  Character,
+  ChallengeQuestion,
+  ChallengeResult,
+  LeaderboardEntry,
+  UserProfile,
+} from "@/types";
+import type {
+  ApiClient,
+  ChatRequest,
+  ChatStreamEvent,
+  CreateUserInput,
+} from "./types";
+
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+async function* mockStreamChat({
+  characterId,
+  message,
+  signal,
+}: ChatRequest): AsyncIterable<ChatStreamEvent> {
+  const character = getCharacter(characterId);
+  if (!character) throw new Error(`Unknown character: ${characterId}`);
+
+  const reply = composeReply(character, message);
+  const chunks = reply.match(/\S+\s*/g) ?? [reply];
+  for (const chunk of chunks) {
+    if (signal?.aborted) return;
+    await delay(35);
+    yield { kind: "token", text: chunk };
+  }
+  yield { kind: "done" };
+}
+
+function composeReply(character: Character, text: string): string {
+  const lower = text.toLowerCase();
+  if (
+    lower.includes("essay") ||
+    lower.includes("bài văn mẫu") ||
+    lower.includes("viết bài")
+  ) {
+    return "Mình không tạo bài văn mẫu hoàn chỉnh. Mình có thể giúp bạn lập dàn ý, tìm luận điểm và dẫn chứng để bạn tự viết bằng giọng của mình.";
+  }
+  if (lower.includes("không rõ") || lower.includes("ngoài tác phẩm")) {
+    return "Phần này chưa có đủ nguồn trong bộ ghi chú hiện có, nên mình không khẳng định như sự thật văn bản. Ta có thể quay lại các chi tiết đã duyệt trước.";
+  }
+  const source =
+    character.sources.find((item) =>
+      lower
+        .split(/\s+/)
+        .some((word) => word.length > 3 && item.toLowerCase().includes(word)),
+    ) ?? character.sources[0];
+  return `Theo giọng của ${character.name}, câu trả lời nên xuất phát từ mâu thuẫn cốt lõi: ${character.conflict} Ghi chú nguồn liên quan: ${source} Đây là diễn giải học tập, không phải trích dẫn nguyên văn toàn bộ tác phẩm.`;
+}
+
+export const mockClient: ApiClient = {
+  async createUser(input: CreateUserInput): Promise<UserProfile> {
+    await delay(0);
+    return {
+      username: input.username,
+      grade: input.grade,
+      // Mock UUID so callers expecting `userId` still get a stable value.
+      userId: `mock-${input.username}`,
+    };
+  },
+  async getDeck(): Promise<Character[]> {
+    await delay(0);
+    return characters;
+  },
+  async getAllCharacters(): Promise<Character[]> {
+    await delay(0);
+    return characters;
+  },
+  async getCharacter(id: string): Promise<Character> {
+    await delay(0);
+    const character = getCharacter(id);
+    if (!character) throw new Error(`Unknown character: ${id}`);
+    return character;
+  },
+  async recordMatch(_id: string): Promise<{ ok: true }> {
+    await delay(0);
+    return { ok: true };
+  },
+  async recordSkip(_id: string): Promise<{ ok: true }> {
+    await delay(0);
+    return { ok: true };
+  },
+  async getMatchedSlugs(): Promise<string[]> {
+    // Mock has no backend; the local Zustand `matches` array IS the
+    // truth in this mode. Returning [] would falsely wipe it on sync,
+    // so callers that respect the real/mock split must skip the
+    // reconciliation entirely when in mock mode.
+    return [];
+  },
+  async getChallenge(id: string): Promise<ChallengeQuestion[]> {
+    await delay(0);
+    const character = getCharacter(id);
+    if (!character) throw new Error(`Unknown character: ${id}`);
+    return character.challenge;
+  },
+  async submitChallenge(
+    id: string,
+    answers: number[],
+  ): Promise<ChallengeResult> {
+    await delay(0);
+    const character = getCharacter(id);
+    if (!character) throw new Error(`Unknown character: ${id}`);
+    return scoreChallenge(character, answers);
+  },
+  async getLeaderboard(): Promise<LeaderboardEntry[]> {
+    await delay(0);
+    return demoLeaders;
+  },
+  async getChatHistory(_characterId: string) {
+    await delay(0);
+    return [];
+  },
+  streamChat(input: ChatRequest) {
+    return mockStreamChat(input);
+  },
+};

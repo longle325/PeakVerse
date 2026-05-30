@@ -1,0 +1,35 @@
+import { Navigate, Route, Routes } from "react-router-dom";
+import AppShell from "@/components/AppShell";
+import RequireProfile from "@/components/RequireProfile";
+import Onboarding from "@/routes/Onboarding";
+import Discover from "@/routes/Discover";
+import Collection from "@/routes/Collection";
+import Chat from "@/routes/Chat";
+import Challenge from "@/routes/Challenge";
+import Leaderboard from "@/routes/Leaderboard";
+import Profile from "@/routes/Profile";
+import CharacterProfile from "@/routes/CharacterProfile";
+
+export default function App() {
+  return (
+    <Routes>
+      <Route path="/onboarding" element={<Onboarding />} />
+      <Route
+        element={
+          <RequireProfile>
+            <AppShell />
+          </RequireProfile>
+        }
+      >
+        <Route path="/discover" element={<Discover />} />
+        <Route path="/collection" element={<Collection />} />
+        <Route path="/characters/:id" element={<CharacterProfile />} />
+        <Route path="/characters/:id/chat" element={<Chat />} />
+        <Route path="/characters/:id/challenge" element={<Challenge />} />
+        <Route path="/leaderboard" element={<Leaderboard />} />
+        <Route path="/profile" element={<Profile />} />
+      </Route>
+      <Route path="*" element={<Navigate to="/discover" replace />} />
+    </Routes>
+  );
+}

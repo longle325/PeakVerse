@@ -1,0 +1,20 @@
+node_modules/
+dist/
+.DS_Store
+.venv/
+.venv-*/
+__pycache__/
+*.py[cod]
+*.tsbuildinfo
+.env
+.env.local
+.env.*.local
+.ruff_cache/
+.brv/
+
+# Knowledge-base SQL dumps — ship via team Drive
+backend/data/*.sql.gz
+
+# Source content reference — not for git
+Content for Hackathon game *.pdf
+image.png

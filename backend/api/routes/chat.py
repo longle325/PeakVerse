@@ -1,0 +1,155 @@
+"""
+Character chat endpoint with SSE streaming.
+
+POST /api/v1/chat/stream
+  Opens a Server-Sent Events connection and streams the character's
+  response token-by-token.
+
+Pipeline:
+  1. Validate user has matched with the character
+  2. Codex agent searches knowledge_base/ for literary context
+  3. System prompt assembled (character voice + context)
+  4. LLM response streamed via SSE
+"""
+
+from __future__ import annotations
+
+import json
+import logging
+
+logger = logging.getLogger(__name__)
+from uuid import UUID
+
+from fastapi import APIRouter, Depends, HTTPException, Query
+from sqlalchemy.ext.asyncio import AsyncSession
+from sse_starlette.sse import EventSourceResponse
+
+from api.deps import get_chat, get_db
+from models.db_models import ChatRole, MatchStatus
+from models.schemas import ChatHistoryResponse, ChatRequest, ChatMessageResponse
+from services import db_postgres as db
+from services.chat_service import ChatService
+
+router = APIRouter(prefix="/chat", tags=["chat"])
+
+
+async def _validate_chat_access(
+    session: AsyncSession,
+    user_id: UUID,
+    character_id: UUID,
+):
+    user = await db.get_user(session, user_id)
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found.")
+
+    character = await db.get_character(session, character_id)
+    if not character:
+        raise HTTPException(status_code=404, detail="Character not found.")
+
+    match = await db.get_match(session, user_id, character_id)
+    if not match or match.status == MatchStatus.SWIPED_LEFT:
+        raise HTTPException(
+            status_code=403,
+            detail="You must match with this character before chatting.",
+        )
+
+    return user, character, match
+
+
+@router.get("/history", response_model=ChatHistoryResponse)
+async def chat_history(
+    user_id: UUID = Query(..., description="Current user's UUID"),
+    character_id: UUID = Query(..., description="Character UUID"),
+    limit: int = Query(100, ge=1, le=200),
+    session: AsyncSession = Depends(get_db),
+):
+    await _validate_chat_access(session, user_id, character_id)
+    messages = await db.list_chat_messages(
+        session,
+        user_id=user_id,
+        character_id=character_id,
+        limit=limit,
+    )
+    return ChatHistoryResponse(
+        messages=[ChatMessageResponse.model_validate(message) for message in messages]
+    )
+
+
+@router.post("/stream")
+async def chat_stream(
+    body: ChatRequest,
+    session: AsyncSession = Depends(get_db),
+    chat_service: ChatService = Depends(get_chat),
+):
+    _, character, _ = await _validate_chat_access(
+        session,
+        body.user_id,
+        body.character_id,
+    )
+    recent_messages = await db.list_recent_chat_messages(
+        session,
+        user_id=body.user_id,
+        character_id=body.character_id,
+        limit=8,
+    )
+    chat_history = [
+        {"role": message.role.value, "content": message.content}
+        for message in recent_messages
+    ]
+    await db.create_chat_message(
+        session,
+        user_id=body.user_id,
+        character_id=body.character_id,
+        role=ChatRole.USER,
+        content=body.message,
+    )
+
+    async def event_generator():
+        assistant_chunks: list[str] = []
+        retrieval = await chat_service.prepare_retrieval(
+            character_slug=character.slug,
+            character_name=character.name,
+            user_message=body.message,
+        )
+        yield {
+            "event": "sources",
+            "data": json.dumps(
+                {
+                    "retrieval_mode": retrieval["retrieval_mode"],
+                    "sources": retrieval["sources"],
+                },
+                ensure_ascii=False,
+            ),
+        }
+        try:
+            async for chunk in chat_service.stream_response(
+                character_slug=character.slug,
+                character_name=character.name,
+                user_message=body.message,
+                voice_instructions=character.voice_instructions,
+                chat_history=chat_history,
+                retrieval=retrieval,
+            ):
+                assistant_chunks.append(chunk)
+                yield {"data": chunk}
+        except Exception as exc:
+            logger.exception("Chat stream failed: %s", exc)
+            yield {
+                "event": "error",
+                "data": json.dumps(
+                    {"error": str(exc)},
+                    ensure_ascii=False,
+                ),
+            }
+            return
+        assistant_message = "".join(assistant_chunks).strip()
+        if assistant_message:
+            await db.create_chat_message(
+                session,
+                user_id=body.user_id,
+                character_id=body.character_id,
+                role=ChatRole.ASSISTANT,
+                content=assistant_message,
+            )
+
+    return EventSourceResponse(event_generator())

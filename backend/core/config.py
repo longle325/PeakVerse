@@ -1,0 +1,75 @@
+"""
+Application settings loaded from environment variables.
+
+Resolution order (pydantic-settings default behaviour):
+  1. OS / container environment variables  (Cloud Run, Docker, shell export)
+  2. .env file (local development convenience)
+
+In production (Cloud Run / Docker) there is no .env file — settings come
+entirely from env vars injected by the platform.  Locally, developers can
+use either `backend/.env` or the repo-root `.env` (shared with Vite).
+"""
+
+from pathlib import Path
+from pydantic_settings import BaseSettings
+from typing import List
+
+
+def _find_env_files() -> list[str]:
+    """Return .env paths that actually exist, closest first."""
+    candidates = [
+        Path(__file__).resolve().parents[1] / ".env",  # backend/.env
+        Path(__file__).resolve().parents[2] / ".env",  # repo-root .env
+    ]
+    return [str(p) for p in candidates if p.is_file()]
+
+
+class Settings(BaseSettings):
+    # --- Database ---
+    DATABASE_URL: str = "postgresql+asyncpg://postgres:postgres@localhost:5432/litmatch"
+
+    # --- OpenAI ---
+    OPENAI_API_KEY: str = ""
+    CODEX_MODEL: str = "codex-mini"
+    CHAT_MODEL: str = "gpt-4o"
+    EMBEDDING_MODEL: str = "text-embedding-3-large"
+    EMBEDDING_DIMENSIONS: int = 3072
+
+    # --- Codex Knowledge Base ---
+    KNOWLEDGE_BASE_DIR: str = "./knowledge_base"
+    RAG_TOP_K: int = 5
+    RAG_MIN_SIMILARITY: float = 0.0
+
+    # --- CORS ---
+    # Vite may pick any free port (5173, 5169, etc.) so allow a range.
+    CORS_ORIGINS: List[str] = [
+        "http://localhost:5173",
+        "http://localhost:5169",
+        "http://127.0.0.1:5173",
+        "http://127.0.0.1:5169",
+        "http://localhost:3000",
+        "capacitor://localhost",  # iOS Capacitor
+        "https://localhost",  # Android Capacitor
+    ]
+
+    # --- App ---
+    APP_TITLE: str = "LitMatch API"
+    APP_VERSION: str = "0.1.0"
+    DEBUG: bool = False
+
+    # --- Points ---
+    POINTS_MATCH: int = 10
+    POINTS_CHALLENGE_COMPLETE: int = 50
+    POINTS_CHALLENGE_PASS_BONUS: int = 40  # >= 4/5
+    CHALLENGE_PASS_THRESHOLD: int = 4  # out of 5
+
+    model_config = {
+        # Tuple of .env paths — pydantic reads the first one found.
+        # Empty tuple is fine (no .env in production containers).
+        "env_file": tuple(_find_env_files()) or (".env",),
+        "env_file_encoding": "utf-8",
+        "extra": "ignore",
+    }
+
+
+settings = Settings()
