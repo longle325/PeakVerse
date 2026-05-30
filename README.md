@@ -5,10 +5,11 @@ AI-generated character journeys. Students swipe through literary characters,
 watch cinematic three-phase video previews, chat with source-grounded personas,
 complete challenges, and climb a learning leaderboard.
 
-The project started from the LitMatch codebase and now focuses on the
-PixVerse-powered video experience for the Film & Entertainment track: video is
-not just playback, it is a preview layer that drives discovery, profile
-exploration, chat, and challenge flow.
+The project started from the
+[longle325/LitMatch](https://github.com/longle325/LitMatch) codebase and now
+focuses on the PixVerse-powered video experience for the Film & Entertainment
+track: video is not just playback, it is a preview layer that drives discovery,
+profile exploration, chat, and challenge flow.
 
 ## Video Preview System
 
